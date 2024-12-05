@@ -5,7 +5,7 @@ export function createUser() {
         name: fakerPT_BR.person.firstName(),
         email: fakerPT_BR.internet.email().toLowerCase()
     };
-}
+};
 
 export function createAccount() {
     const bankAccounts = [
@@ -17,9 +17,7 @@ export function createAccount() {
         "Bradesco"
     ];
 
-    // Seleciona aleatoriamente um banco
     const randomBank = bankAccounts[Math.floor(Math.random() * bankAccounts.length)];
     
-    // Retorna o nome do banco
     return randomBank;
-}
+};

@@ -1,12 +1,12 @@
+import { createUser } from '../support/utils';
 import LoginPage from '../pages/loginPage'
 import RegisterPage from '../pages/registerPage';
-import { createUser } from '../support/utils';
 
 const loginPage = new LoginPage();
 const registerPage = new RegisterPage();
 const user = createUser();
 
-describe('Register', () => {
+describe('Register page', () => {
   beforeEach(() => {
     loginPage.accessLoginPage('/login');
     loginPage.accessRegisterPage();
@@ -22,7 +22,7 @@ describe('Register', () => {
     registerPage.verifyMessage("Nome é um campo obrigatório");
   });
 
-  it('Empty e-mail', () => {
+  it('Empty email', () => {
     registerPage.fillForms(user.name, "", Cypress.env("PASSWORD_VALID"));
     registerPage.verifyMessage("Email é um campo obrigatório");
   });

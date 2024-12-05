@@ -1,45 +1,38 @@
-import { click, set, getText, getMessages, visitPage } from "../support/actions";
+import { click, set, getText, getMessages, visitPage, getUrl } from "../support/actions";
+import loginElements from "../elements/loginElements";
 
 class LoginPage {
-    selectorsList() {
-        const selectors = { 
-            emailField: "#email",
-            passwordField: "#senha",
-            loginBtn: 'button[type="submit"]',
-            credentialsAlert: 'div[role="alert"]',
-            registerBtn: 'a[href="/cadastro"]'
-        }
+  accessLoginPage(route) {
+    visitPage(route);
+  }
 
-        return selectors
+  accessRegisterPage() {
+    click(loginElements.registerBtn);
+  }
+
+  loginWithUser(email, password) {
+    if (email !== "") {
+      set(loginElements.emailField, email);
     }
 
-    accessLoginPage(route) {
-        visitPage(route)
+    if (password !== "") {
+      set(loginElements.passwordField, password);
     }
 
-    accessRegisterPage() {
-        click(this.selectorsList().registerBtn);
-    }
+    click(loginElements.loginBtn);
+  }
 
-    loginWithUser(email, password) {
-        if (email !== "") {
-            set(this.selectorsList().emailField, email);
-        }
-    
-        if (password !== "") {
-            set(this.selectorsList().passwordField, password)
-        }
+  verifyErrorAlert(msg) {
+    getText(loginElements.credentialsAlert, msg);
+  }
 
-        click(this.selectorsList().loginBtn)
-    }
+  verifyErrorAlerts(messages) {
+    getMessages(loginElements.credentialsAlert, messages);
+  }
 
-    verifyErrorAlert(msg) {
-        getText(this.selectorsList().credentialsAlert, msg)
-    }
-
-    verifyErrorAlerts(messages) {
-        getMessages(this.selectorsList().credentialsAlert, messages);
-    }
+  verifyPageUrl(url) {
+    getUrl(url);
+  }
 }
 
 export default LoginPage;

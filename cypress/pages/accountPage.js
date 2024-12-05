@@ -1,43 +1,31 @@
 import { click, set, getText, getList } from "../support/actions";
+import accountElements from '../elements/accountElements';
 
 class AccountPage {
-    selectorsList() {
-        const selectors = { 
-            nameField: "#nome",
-            saveBtn: 'button[type="submit"]',
-            alert: '.alert',
-            deleteBtn: 'span[class="glyphicon glyphicon-remove-circle"]',
-            editBtn: 'span[class="glyphicon glyphicon-edit"]',
-            listAccount: 'tbody > tr'
-        }
-
-        return selectors
-    }
-
     createAccount(nameAccount) {
         if(nameAccount !== "") {
-            set(this.selectorsList().nameField, nameAccount);
+            set(accountElements.nameField, nameAccount);
         }
         
-        click(this.selectorsList().saveBtn);
+        click(accountElements.saveBtn);
     }
 
     editAccount(nameAccount) {
-        click(this.selectorsList().editBtn);
-        set(this.selectorsList().nameField, nameAccount);
-        click(this.selectorsList().saveBtn);
+        click(accountElements.editBtn);
+        set(accountElements.nameField, nameAccount);
+        click(accountElements.saveBtn);
     }
 
     deleteAccount() {
-        click(this.selectorsList().deleteBtn);
+        click(accountElements.deleteBtn);
     }
 
     verifyMessage(msg) {
-        getText(this.selectorsList().alert, msg);
+        getText(accountElements.alert, msg);
     }
 
     verifyList(length) {
-        getList(this.selectorsList().listAccount, length);
+        getList(accountElements.listAccount, length);
     }
 }
 

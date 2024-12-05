@@ -1,41 +1,30 @@
 import { click, getMessages, getText, set } from "../support/actions";
+import registerElements from "../elements/registerElements";
 
 class RegisterPage {
-    selectorsList() {
-        const selectors = { 
-            nameField: "#nome",
-            emailField: "#email",
-            passwordField: "#senha",
-            registerBtn: 'input[type="submit"]',
-            alert: ".alert"
-        }
-
-        return selectors
+  fillForms(name, email, password) {
+    if (name !== "") {
+      set(registerElements.nameField, name);
     }
 
-    fillForms(name, email, password) {
-        if(name !== "") {
-            set(this.selectorsList().nameField, name);
-        }
-        
-        if(email !== "") {
-            set(this.selectorsList().emailField, email);
-        }
-        
-        if(password !== "") {
-            set(this.selectorsList().passwordField, password);
-        }
-
-        click(this.selectorsList().registerBtn);
+    if (email !== "") {
+      set(registerElements.emailField, email);
     }
 
-    verifyMessage(msg) {
-        getText(this.selectorsList().alert, msg);
+    if (password !== "") {
+      set(registerElements.passwordField, password);
     }
 
-    verifyErrorMessages(messages) {
-        getMessages(this.selectorsList().alert, messages)
-    }
+    click(registerElements.registerBtn);
+  }
+
+  verifyMessage(msg) {
+    getText(registerElements.alert, msg);
+  }
+
+  verifyErrorMessages(messages) {
+    getMessages(registerElements.alert, messages);
+  }
 }
 
 export default RegisterPage;

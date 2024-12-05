@@ -1,13 +1,12 @@
-import { visitPage } from './actions';
 import LoginPage from '../pages/loginPage'
-import DashboardPage from '../pages/dashboardPage';
+import HomePage from '../pages/homePage';
 import AccountPage from '../pages/accountPage';
-// import MonthlySummaryPage from '../pages/monthlySummaryPage';
+import MonthlySummaryPage from '../pages/monthlySummaryPage';
 
 const loginPage = new LoginPage();
-const dashboardPage = new DashboardPage();
+const homePage = new HomePage();
 const accountPage = new AccountPage();
-// const monthlySummaryPage = new MonthlySummaryPage();
+const monthlySummaryPage = new MonthlySummaryPage();
 
 Cypress.Commands.add('login', () => {
     loginPage.accessLoginPage('/login');
@@ -15,16 +14,16 @@ Cypress.Commands.add('login', () => {
 });
 
 Cypress.Commands.add('createAccount', () => {
-    dashboardPage.accountMenu('Adicionar');
+    homePage.accessAccounts('Adicionar');
     accountPage.createAccount('Nubank');
 });
 
 Cypress.Commands.add('deleteAccount', () => {
-    dashboardPage.accountMenu('Listar');
+    homePage.accessAccounts('Listar');
     accountPage.deleteAccount();
 });
 
-// Cypress.Commands.add('deletemonthlySummary', () => {
-//     dashboardPage.accessMonthlySummary();
-//     monthlySummaryPage.deleteMonthlySummary();
-// });
+Cypress.Commands.add('deletemonthlySummary', () => {
+    homePage.accessMonthlySummary();
+    monthlySummaryPage.deleteMonthlySummary();
+});
