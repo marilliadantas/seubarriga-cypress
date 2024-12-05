@@ -12,7 +12,7 @@ describe('Login', () => {
   it('Login successfully', () => {
     loginPage.loginWithUser(Cypress.env("EMAIL_VALID"), Cypress.env("PASSWORD_VALID"))
     dashboardPage.verifyPageUrl('/logar')
-    dashboardPage.verifyWelcomeMessage('Bem vindo, Mari!')
+    dashboardPage.verifyMessage('Bem vindo, Mari!')
   });
 
   it('Invalid e-mail', () => {

@@ -1,9 +1,9 @@
-import { click } from "../support/actions";
+import { click, getText, getUrl } from "../support/actions";
 
 class DashboardPage {
     selectorsList() {
         const selectors = { 
-            successAlert: ".alert.alert-success",
+            alert: ".alert",
             accountBtn: '.dropdown-toggle',
             createMovement: 'a[href="/movimentacao"]',
             monthlySummary: 'a[href="/extrato"]',
@@ -14,36 +14,36 @@ class DashboardPage {
         return selectors
     }
 
-    // accountMenu(option) {
-    //     switch(option) {
-    //         case 'Adicionar': 
-    //             click(this.selectorsList().accountBtn);
-    //             click(this.selectorsList().addButton);
-    //             break;
-    //         case 'Listar': 
-    //             click(this.selectorsList().accountBtn);
-    //             click(this.selectorsList().listButton);
-    //             break;
-    //         default:
-    //             console.error('Please provide a valid option');
-    //             break;
-    //     }
-    // }    
+    accountMenu(option) {
+        switch(option) {
+            case 'Adicionar': 
+                click(this.selectorsList().accountBtn);
+                click(this.selectorsList().addButton);
+                break;
+            case 'Listar': 
+                click(this.selectorsList().accountBtn);
+                click(this.selectorsList().listButton);
+                break;
+            default:
+                console.error('Please provide a valid option');
+                break;
+        }
+    }    
 
-    // accessCreateMovement() {
-    //     cy.get(this.selectorsList().createMovement).click();
-    // }
+    accessCreateMovement() {
+        click(this.selectorsList().createMovement);
+    }
 
     // accessMonthlySummary() {
     //     cy.get(this.selectorsList().monthlySummary).click();
     // }
 
     verifyPageUrl(url) { 
-        cy.url().should('include', url)
+       getUrl(url)
     }
 
-    verifyWelcomeMessage(msg) {
-        cy.get(this.selectorsList().successAlert).should('have.text', msg)
+    verifyMessage(msg) {
+        getText(this.selectorsList().alert, msg);
     }
 }
 

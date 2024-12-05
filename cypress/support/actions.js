@@ -23,6 +23,10 @@ function click(el) {
     cy.get(el)
       .clear().type(text, option);
   }
+
+  function getUrl(url) {
+    cy.url().should('include', url)
+  }
   
   function getMessages(el, expectedMessages) {
     return cy.get(el).should('have.length', expectedMessages.length).each(($el, index) => {
@@ -37,5 +41,5 @@ function click(el) {
   }
   
   module.exports = {
-    set, click, waitElement, getText, getMessages, getList, visitPage
+    set, click, waitElement, getText, getMessages, getList, visitPage, getUrl
   };
