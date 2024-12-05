@@ -14,11 +14,9 @@ class LoginPage {
     if (email !== "") {
       set(loginElements.emailField, email);
     }
-
     if (password !== "") {
       set(loginElements.passwordField, password);
     }
-
     click(loginElements.loginBtn);
   }
 

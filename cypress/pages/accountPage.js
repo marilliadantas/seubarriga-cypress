@@ -6,7 +6,6 @@ class AccountPage {
         if(nameAccount !== "") {
             set(accountElements.nameField, nameAccount);
         }
-        
         click(accountElements.saveBtn);
     }
 

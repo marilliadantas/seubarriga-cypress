@@ -14,7 +14,6 @@ class RegisterPage {
     if (password !== "") {
       set(registerElements.passwordField, password);
     }
-
     click(registerElements.registerBtn);
   }
 
