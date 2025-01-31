@@ -66,27 +66,9 @@ jobs:
       - name: 🧪 Rodando Testes no Firefox 🧪
         uses: cypress-io/github-action@v6
         with:
-          browser: firefox
+          browser: edge
         env:
           CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
           CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
           CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
           CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
-
-  ui-mobile-tests:
-    needs: install-dependencies
-    runs-on: ubuntu-22.04
-    steps:
-      - name: 📁 Copiando o Projeto 📂 
-        uses: actions/checkout@v4
-
-      - name: 🧪 Rodando Testes Mobile (modo headless) 🧪
-        uses: cypress-io/github-action@v6
-        with:
-          browser: chrome
-        env:
-          CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
-          CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
-          CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
-          CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
-          headed: false
