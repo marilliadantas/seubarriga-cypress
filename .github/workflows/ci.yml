@@ -11,14 +11,6 @@ jobs:
       
       - name: 📦 Instalando Dependências 📦
         run: npm ci
-      
-      - name: 📤 Cache das Dependências 📤
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-cache-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-cache-
 
   ui-chrome-tests:
     needs: install-dependencies
@@ -86,7 +78,6 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-          headed: true
           config: viewportWidth=375,viewportHeight=812
         env:
           CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
