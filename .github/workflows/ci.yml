@@ -6,38 +6,48 @@ jobs:
   install-dependencies:
     runs-on: ubuntu-22.04
     steps:
-      - name: 📁 Copiando o Projeto 📂
+      - name: 📁 Copiando o Projeto 📂 
         uses: actions/checkout@v4
-      
+
       - name: 📦 Instalando Dependências 📦
-        run: npm ci
+        run: |
+          if [ ! -f package-lock.json ] && [ -f package.json ]; then
+            npm install --package-lock-only
+          fi
+          npm install
+
+      - name: 📤 Cache de Dependências 🔄
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
 
   ui-chrome-tests:
     needs: install-dependencies
     runs-on: ubuntu-22.04
     steps:
-      - name: 🧪 Rodando os Testes UI no Chrome 🧪
+      - name: 📁 Copiando o Projeto 📂 
+        uses: actions/checkout@v4
+
+      - name: 🧪 Rodando Testes no Chrome 🧪
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-        env:
-          CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
-          CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
-          CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
-          CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
-      
+
       - name: ⛔ Upload dos arquivos em caso de falha 🎬
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots-chrome
+          name: cypress-screenshots
           path: cypress/screenshots
           if-no-files-found: ignore 
 
       - name: ✅ Upload dos arquivos em caso de sucesso 📹
         uses: actions/upload-artifact@v4
         with:
-          name: cypress-videos-chrome
+          name: cypress-videos
           path: cypress/videos
           if-no-files-found: ignore
 
@@ -45,57 +55,23 @@ jobs:
     needs: install-dependencies
     runs-on: ubuntu-22.04
     steps:
-      - name: 🧪 Rodando os Testes UI no Firefox 🧪
+      - name: 📁 Copiando o Projeto 📂 
+        uses: actions/checkout@v4
+
+      - name: 🧪 Rodando Testes no Firefox 🧪
         uses: cypress-io/github-action@v6
         with:
           browser: firefox
-        env:
-          CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
-          CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
-          CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
-          CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
-      
-      - name: ⛔ Upload dos arquivos em caso de falha 🎬
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-screenshots-firefox
-          path: cypress/screenshots
-          if-no-files-found: ignore 
-
-      - name: ✅ Upload dos arquivos em caso de sucesso 📹
-        uses: actions/upload-artifact@v4
-        with:
-          name: cypress-videos-firefox
-          path: cypress/videos
-          if-no-files-found: ignore
 
   ui-mobile-tests:
     needs: install-dependencies
     runs-on: ubuntu-22.04
     steps:
-      - name: 🧪 Rodando os Testes UI Mobile 🧪
+      - name: 📁 Copiando o Projeto 📂 
+        uses: actions/checkout@v4
+
+      - name: 🧪 Rodando Testes Mobile (modo headless) 🧪
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-          config: viewportWidth=375,viewportHeight=812
-        env:
-          CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
-          CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
-          CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
-          CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
-      
-      - name: ⛔ Upload dos arquivos em caso de falha 🎬
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-screenshots-mobile
-          path: cypress/screenshots
-          if-no-files-found: ignore 
-
-      - name: ✅ Upload dos arquivos em caso de sucesso 📹
-        uses: actions/upload-artifact@v4
-        with:
-          name: cypress-videos-mobile
-          path: cypress/videos
-          if-no-files-found: ignore
+          headed: false
