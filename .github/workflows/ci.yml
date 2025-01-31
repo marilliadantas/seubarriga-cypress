@@ -57,7 +57,7 @@ jobs:
           if-no-files-found: ignore
 
   ui-edge-tests:
-    needs: install-dependencies
+    needs: ui-chrome-tests
     runs-on: ubuntu-22.04
     steps:
       - name: 📁 Copiando o Projeto 📂 
@@ -74,7 +74,7 @@ jobs:
           CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
 
   ui-firefox-tests:
-    needs: install-dependencies
+    needs: ui-edge-tests
     runs-on: ubuntu-22.04
     steps:
       - name: 📁 Copiando o Projeto 📂 
