@@ -6,7 +6,7 @@ jobs:
   install-dependencies:
     runs-on: ubuntu-22.04
     steps:
-      - name: 📁 Copiando o Projeto 📂 
+      - name: 📁 Copiando o Projeto
         uses: actions/checkout@v4
 
       - name: 📦 Instalando Dependências 📦
@@ -16,7 +16,7 @@ jobs:
           fi
           npm install
 
-      - name: 📤 Cache de Dependências 🔄
+      - name: 📤 Cache de Dependências
         uses: actions/cache@v3
         with:
           path: node_modules
@@ -28,10 +28,10 @@ jobs:
     needs: install-dependencies
     runs-on: ubuntu-22.04
     steps:
-      - name: 📁 Copiando o Projeto 📂 
+      - name: 📁 Copiando o Projeto
         uses: actions/checkout@v4
 
-      - name: 🧪 Rodando Testes no Chrome 🧪
+      - name: 🧪 Rodando Testes no Chrome
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
@@ -41,7 +41,7 @@ jobs:
           CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
           CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
 
-      - name: ⛔ Upload dos arquivos em caso de falha 🎬
+      - name: ⛔ Upload dos arquivos em caso de falha
         uses: actions/upload-artifact@v4
         if: failure()
         with:
@@ -49,7 +49,7 @@ jobs:
           path: cypress/screenshots
           if-no-files-found: ignore 
 
-      - name: ✅ Upload dos arquivos em caso de sucesso 📹
+      - name: ✅ Upload dos arquivos em caso de sucesso
         uses: actions/upload-artifact@v4
         with:
           name: cypress-videos
@@ -60,10 +60,10 @@ jobs:
     needs: ui-chrome-tests
     runs-on: ubuntu-22.04
     steps:
-      - name: 📁 Copiando o Projeto 📂 
+      - name: 📁 Copiando o Projeto
         uses: actions/checkout@v4
 
-      - name: 🧪 Rodando Testes no Edge 🧪
+      - name: 🧪 Rodando Testes no Edge
         uses: cypress-io/github-action@v6
         with:
           browser: edge
@@ -77,10 +77,10 @@ jobs:
     needs: ui-edge-tests
     runs-on: ubuntu-22.04
     steps:
-      - name: 📁 Copiando o Projeto 📂 
+      - name: 📁 Copiando o Projeto
         uses: actions/checkout@v4
 
-      - name: 🧪 Rodando Testes no Firefox 🧪
+      - name: 🧪 Rodando Testes no Firefox
         uses: cypress-io/github-action@v6
         with:
           browser: firefox
@@ -90,7 +90,7 @@ jobs:
           CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
           CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
 
-      - name: ⛔ Upload dos arquivos em caso de falha 🎬
+      - name: ⛔ Upload dos arquivos em caso de falha
         uses: actions/upload-artifact@v4
         if: failure()
         with:
@@ -98,7 +98,7 @@ jobs:
           path: cypress/screenshots
           if-no-files-found: ignore 
 
-      - name: ✅ Upload dos arquivos em caso de sucesso 📹
+      - name: ✅ Upload dos arquivos em caso de sucesso
         uses: actions/upload-artifact@v4
         with:
           name: cypress-videos
