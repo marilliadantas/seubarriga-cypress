@@ -1,18 +1,15 @@
 import HomePage from "../pages/homePage";
 import MovementPage from "../pages/movementPage";
+import { getFormattedDate } from '../support/utils';
 
 const homePage = new HomePage();
 const movementPage = new MovementPage();
 
-const currentDate = new Date();
-const formattedDate = currentDate.toLocaleDateString('pt-BR', {
-  day: '2-digit',
-  month: '2-digit',
-  year: 'numeric'
-});
-
 describe("Movement Creation", () => {
+  let formattedDate;
+
   beforeEach(() => {
+    formattedDate = getFormattedDate()
     cy.login();
     cy.createAccount();
     homePage.accessCreateMovement();
