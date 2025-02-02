@@ -1,5 +1,7 @@
 import LoginPage from '../pages/loginPage'
 import HomePage from '../pages/homePage';
+import messageLogin from "../fixtures/msgLogin.json";
+import messageHome from "../fixtures/msgHome.json";
 
 const loginPage = new LoginPage();
 const homePage = new HomePage();
@@ -12,34 +14,34 @@ describe('Login page', () => {
   it('Login successfully', () => {
     loginPage.loginWithUser(Cypress.env("EMAIL_VALID"), Cypress.env("PASSWORD_VALID"))
     homePage.verifyPageUrl('/logar')
-    homePage.verifyMessage('Bem vindo, Mari!')
+    homePage.verifyMessage(messageHome.welcome)
   });
 
   it('Invalid email', () => {
     loginPage.loginWithUser(Cypress.env("EMAIL_INVALID"), Cypress.env("PASSWORD_VALID"))
-    loginPage.verifyErrorAlert('Problemas com o login do usuário')
+    loginPage.verifyErrorAlert(messageLogin.loginInvalid)
   });
 
   it('Invalid password', () => {
     loginPage.loginWithUser(Cypress.env("EMAIL_VALID"), Cypress.env("PASSWORD_INVALID"))
-    loginPage.verifyErrorAlert('Problemas com o login do usuário')
+    loginPage.verifyErrorAlert(messageLogin.loginInvalid)
   });
 
   it('Empty email', () => {
     loginPage.loginWithUser("", Cypress.env("PASSWORD_VALID"))
-    loginPage.verifyErrorAlert('Email é um campo obrigatório')
+    loginPage.verifyErrorAlert(messageLogin.emailRequired)
   });
 
   it('Empty password', () => {
     loginPage.loginWithUser(Cypress.env("EMAIL_VALID"), "")
-    loginPage.verifyErrorAlert('Senha é um campo obrigatório')
+    loginPage.verifyErrorAlert(messageLogin.passwordRequired)
   });
 
   it('Empty fields', () => {
     loginPage.loginWithUser("", "")
     loginPage.verifyErrorAlerts([
-      'Email é um campo obrigatório',
-      'Senha é um campo obrigatório'
+      messageLogin.emailRequired,
+      messageLogin.passwordRequired
     ]);
   });
 });

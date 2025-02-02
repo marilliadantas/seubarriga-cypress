@@ -1,0 +1,5 @@
+{
+    "loginInvalid": "Problemas com o login do usuário",
+    "emailRequired": "Email é um campo obrigatório",
+    "passwordRequired": "Senha é um campo obrigatório"
+}
