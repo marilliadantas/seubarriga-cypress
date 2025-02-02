@@ -1,6 +1,6 @@
 name: E2E Tests
 
-on:
+on: 
   push:
     branches:
       - main
@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        browser: [chrome, edge, firefox]
+        browser: [chrome, edge, firefox]  # Definindo a matriz de navegadores
     steps:
       - name: 📁 Copying the Project
         uses: actions/checkout@v4
@@ -22,7 +22,7 @@ jobs:
       - name: 🧪 Running Tests on ${{ matrix.browser }}
         uses: cypress-io/github-action@v6
         with:
-          browser: ${{ matrix.browser }}
+          browser: ${{ matrix.browser }}  # Usando o valor da matriz para o navegador
         env:
           CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
           CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
