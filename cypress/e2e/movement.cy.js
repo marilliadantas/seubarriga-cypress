@@ -21,17 +21,17 @@ describe("Movement Creation", () => {
     });
 
     it("Create pending revenue", () => {
-      movementPage.fillForms("Receita", "01/02/2025", "01/02/2025", "Salary", "Nagato", "10.000", "Nubank", "Pendente");
+      movementPage.fillForms("Receita", formattedDate, formattedDate, "Salary", "Nagato", "10.000", "Nubank", "Pendente");
       movementPage.verifyMessage("Movimentação adicionada com sucesso!");
     });
 
     it("Create paid revenue", () => {
-      movementPage.fillForms("Receita", "01/02/2025", "01/02/2025", "Salary", "Nagato", "10.000", "Nubank", "Pago");
+      movementPage.fillForms("Receita", formattedDate, formattedDate, "Salary", "Nagato", "10.000", "Nubank", "Pago");
       movementPage.verifyMessage("Movimentação adicionada com sucesso!");
     });
 
     it("Create pending expense", () => {
-      movementPage.fillForms("Despesa", "01/02/2025", "01/02/2025", "Salary", "Nagato", "10.000", "Nubank", "Pendente");
+      movementPage.fillForms("Despesa", formattedDate, "05/12/2025", "Salary", "Nagato", "10.000", "Nubank", "Pendente");
       movementPage.verifyMessage("Movimentação adicionada com sucesso!");
     });
 
