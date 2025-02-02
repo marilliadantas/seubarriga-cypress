@@ -28,13 +28,8 @@ jobs:
     needs: install-dependencies
     runs-on: ubuntu-22.04
     steps:
-      - name: 📤 Restaurando Cache de Dependências
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
+      - name: 📁 Copiando o Projeto
+        uses: actions/checkout@v4
 
       - name: 🧪 Rodando Testes no Chrome
         uses: cypress-io/github-action@v6
@@ -62,16 +57,11 @@ jobs:
           if-no-files-found: ignore
 
   ui-edge-tests:
-    needs: install-dependencies
+    needs: ui-chrome-tests
     runs-on: ubuntu-22.04
     steps:
-      - name: 📤 Restaurando Cache de Dependências
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
+      - name: 📁 Copiando o Projeto
+        uses: actions/checkout@v4
 
       - name: 🧪 Rodando Testes no Edge
         uses: cypress-io/github-action@v6
@@ -84,16 +74,11 @@ jobs:
           CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
 
   ui-firefox-tests:
-    needs: install-dependencies
+    needs: ui-edge-tests
     runs-on: ubuntu-22.04
     steps:
-      - name: 📤 Restaurando Cache de Dependências
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
+      - name: 📁 Copiando o Projeto
+        uses: actions/checkout@v4
 
       - name: 🧪 Rodando Testes no Firefox
         uses: cypress-io/github-action@v6
