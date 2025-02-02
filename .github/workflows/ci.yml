@@ -1,28 +1,52 @@
 name: E2E Tests
 
-on: 
-  push:
-    branches:
-      - main
-      - development
-  pull_request:
-    branches:
-      - main
+on: push
 
 jobs:
-  ui-tests:
+  ui-chrome-tests:
     runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        browser: [chrome, edge, firefox]  # Definindo a matriz de navegadores
     steps:
       - name: 📁 Copying the Project
         uses: actions/checkout@v4
 
-      - name: 🧪 Running Tests on ${{ matrix.browser }}
+      - name: 🧪 Running Tests in Chrome
         uses: cypress-io/github-action@v6
         with:
-          browser: ${{ matrix.browser }}  # Usando o valor da matriz para o navegador
+          browser: chrome
+        env:
+          CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
+          CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
+          CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
+          CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
+
+  ui-edge-tests:
+    needs: ui-chrome-tests  
+    runs-on: ubuntu-22.04
+    steps:
+      - name: 📁 Copying the Project
+        uses: actions/checkout@v4
+
+      - name: 🧪 Running Tests in Edge
+        uses: cypress-io/github-action@v6
+        with:
+          browser: edge
+        env:
+          CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
+          CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
+          CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
+          CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
+
+  ui-firefox-tests:
+    needs: ui-edge-tests  
+    runs-on: ubuntu-22.04
+    steps:
+      - name: 📁 Copying the Project
+        uses: actions/checkout@v4
+
+      - name: 🧪 Running Tests in Firefox
+        uses: cypress-io/github-action@v6
+        with:
+          browser: firefox
         env:
           CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
           CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
