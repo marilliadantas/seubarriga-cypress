@@ -3,11 +3,7 @@ name: E2E Tests
 on: push
 
 jobs:
-<<<<<<< HEAD
   setup:
-=======
-  cypress-run-chrome:
->>>>>>> 4a10f4cd68cd036069bc35111c58cf23a1e81c4e
     runs-on: ubuntu-22.04
     steps:
       - name: 📁 Copying the Project
