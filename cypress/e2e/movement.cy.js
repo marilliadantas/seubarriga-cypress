@@ -7,6 +7,8 @@ const movementPage = new MovementPage();
 const currentDate = new Date();
 const formattedDate = `${String(currentDate.getDate()).padStart(2, '0')}/${String(currentDate.getMonth() + 1).padStart(2, '0')}/${currentDate.getFullYear()}`;
 
+console.log(formattedDate); 
+
 describe("Movement Creation", () => {
   beforeEach(() => {
     cy.login();
@@ -21,7 +23,7 @@ describe("Movement Creation", () => {
     });
 
     it("Create pending revenue", () => {
-      movementPage.fillForms("Receita", formattedDate, formattedDate, "Salary", "Nagato", "10.000", "Nubank", "Pendente");
+      movementPage.fillForms("Receita", `${formattedDate}`, `${formattedDate}`, "Salary", "Nagato", "10.000", "Nubank", "Pendente");
       movementPage.verifyMessage("Movimentação adicionada com sucesso!");
     });
 
