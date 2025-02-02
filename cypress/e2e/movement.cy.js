@@ -5,7 +5,8 @@ const homePage = new HomePage();
 const movementPage = new MovementPage();
 
 const currentDate = new Date();
-const formattedDate = `${("0" + currentDate.getDate()).slice(-2)}/${("0" + (currentDate.getMonth() + 1)).slice(-2)}/${currentDate.getFullYear()}`;
+currentDate.setHours(0, 0, 0, 0);
+const formattedDate = new Intl.DateTimeFormat("pt-BR").format(currentDate);
 
 describe("Movement Creation", () => {
   beforeEach(() => {
