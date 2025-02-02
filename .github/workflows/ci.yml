@@ -6,10 +6,10 @@ jobs:
   ui-chrome-tests:
     runs-on: ubuntu-22.04
     steps:
-      - name: 📁 Copiando o Projeto
+      - name: 📁 Copying the Project
         uses: actions/checkout@v4
 
-      - name: 🧪 Rodando Testes no Chrome
+      - name: 🧪 Running Tests in Chrome
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
@@ -23,10 +23,10 @@ jobs:
     needs: ui-chrome-tests  
     runs-on: ubuntu-22.04
     steps:
-      - name: 📁 Copiando o Projeto
+      - name: 📁 Copying the Project
         uses: actions/checkout@v4
 
-      - name: 🧪 Rodando Testes no Edge
+      - name: 🧪 Running Tests in Edge
         uses: cypress-io/github-action@v6
         with:
           browser: edge
@@ -40,10 +40,10 @@ jobs:
     needs: ui-edge-tests  
     runs-on: ubuntu-22.04
     steps:
-      - name: 📁 Copiando o Projeto
+      - name: 📁 Copying the Project
         uses: actions/checkout@v4
 
-      - name: 🧪 Rodando Testes no Firefox
+      - name: 🧪 Running Tests in Firefox
         uses: cypress-io/github-action@v6
         with:
           browser: firefox
