@@ -1,74 +1,28 @@
-name: E2E Tests 
+name: E2E Tests
 
-on: push
+on:
+  push:
+    branches:
+      - main
+      - development
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  setup:
+  ui-tests:
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        browser: [chrome, edge, firefox]
     steps:
       - name: 📁 Copying the Project
         uses: actions/checkout@v4
 
-      - name: 🔄 Upload Repository
-        uses: actions/upload-artifact@v4
-        with:
-          name: source-code
-          path: .
-
-  cypress-run-chrome:
-    needs: setup
-    runs-on: ubuntu-22.04
-    steps:
-      - name: 📂 Download Repository
-        uses: actions/download-artifact@v4
-        with:
-          name: source-code
-          path: .
-
-      - name: 🧪 Running Tests in Chrome
+      - name: 🧪 Running Tests on ${{ matrix.browser }}
         uses: cypress-io/github-action@v6
         with:
-          browser: chrome
-        env:
-          CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
-          CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
-          CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
-          CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
-
-  cypress-run-edge:
-    needs: cypress-run-chrome
-    runs-on: ubuntu-22.04
-    steps:
-      - name: 📂 Download Repository
-        uses: actions/download-artifact@v4
-        with:
-          name: source-code
-          path: .
-
-      - name: 🧪 Running Tests in Edge
-        uses: cypress-io/github-action@v6
-        with:
-          browser: edge
-        env:
-          CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
-          CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
-          CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
-          CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
-
-  cypress-run-firefox:
-    needs: cypress-run-edge
-    runs-on: ubuntu-22.04
-    steps:
-      - name: 📂 Download Repository
-        uses: actions/download-artifact@v4
-        with:
-          name: source-code
-          path: .
-
-      - name: 🧪 Running Tests in Firefox
-        uses: cypress-io/github-action@v6
-        with:
-          browser: firefox
+          browser: ${{ matrix.browser }}
         env:
           CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
           CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
