@@ -16,27 +16,23 @@ describe("Movement Creation", () => {
   });
 
   context("Financial Create Transactions", () => {
-    const currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0);
-    const formattedDate = new Intl.DateTimeFormat("pt-BR").format(currentDate);
-    
     afterEach(() => {
       cy.deletemonthlySummary();
       cy.deleteAccount();
     });
 
     it("Create pending revenue", () => {
-      movementPage.fillForms("Receita", formattedDate, formattedDate, "Salary", "Nagato", "10.000", "Nubank", "Pendente");
+      movementPage.fillForms("Receita", "01/02/2025", "01/02/2025", "Salary", "Nagato", "10.000", "Nubank", "Pendente");
       movementPage.verifyMessage("Movimentação adicionada com sucesso!");
     });
 
     it("Create paid revenue", () => {
-      movementPage.fillForms("Receita", formattedDate, formattedDate, "Salary", "Nagato", "10.000", "Nubank", "Pago");
+      movementPage.fillForms("Receita", "01/02/2025", "01/02/2025", "Salary", "Nagato", "10.000", "Nubank", "Pago");
       movementPage.verifyMessage("Movimentação adicionada com sucesso!");
     });
 
     it("Create pending expense", () => {
-      movementPage.fillForms("Despesa", formattedDate, formattedDate, "Salary", "Nagato", "10.000", "Nubank", "Pendente");
+      movementPage.fillForms("Despesa", "01/02/2025", "01/02/2025", "Salary", "Nagato", "10.000", "Nubank", "Pendente");
       movementPage.verifyMessage("Movimentação adicionada com sucesso!");
     });
 
