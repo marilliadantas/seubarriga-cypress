@@ -21,7 +21,7 @@ describe("Movement Creation", () => {
     });
 
     it("Create pending revenue", () => {
-      movementPage.fillForms("Receita", formattedDate,formattedDate, "Salary", "Nagato", "10.000", "Nubank", "Pendente");
+      movementPage.fillForms("Receita", formattedDate, formattedDate, "Salary", "Nagato", "10.000", "Nubank", "Pendente");
       movementPage.verifyMessage("Movimentação adicionada com sucesso!");
     });
 
