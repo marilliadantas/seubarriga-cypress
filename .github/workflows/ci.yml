@@ -20,7 +20,7 @@ jobs:
           CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
 
   cypress-run-edge:
-    needs: ui-chrome-tests
+    needs: cypress-run-chrome
     runs-on: ubuntu-22.04
     steps:
       - name: 📁 Copying the Project
@@ -37,7 +37,7 @@ jobs:
           CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
 
   cypress-run-firefox:
-    needs: ui-edge-tests
+    needs: cypress-run-edge
     runs-on: ubuntu-22.04
     steps:
       - name: 📁 Copying the Project
@@ -54,6 +54,7 @@ jobs:
           CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
           
   cypress-run-safari:
+    needs: cypress-run-firefox
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
