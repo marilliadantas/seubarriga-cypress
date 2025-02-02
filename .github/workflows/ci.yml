@@ -1,13 +1,29 @@
-name: E2E Tests
+name: E2E Tests 
 
 on: push
 
 jobs:
-  ui-chrome-tests:
+  setup:
     runs-on: ubuntu-22.04
     steps:
       - name: 📁 Copying the Project
         uses: actions/checkout@v4
+
+      - name: 🔄 Upload Repository
+        uses: actions/upload-artifact@v3
+        with:
+          name: source-code
+          path: .
+
+  cypress-run-chrome:
+    needs: setup
+    runs-on: ubuntu-22.04
+    steps:
+      - name: 📂 Download Repository
+        uses: actions/download-artifact@v3
+        with:
+          name: source-code
+          path: .
 
       - name: 🧪 Running Tests in Chrome
         uses: cypress-io/github-action@v6
@@ -19,12 +35,15 @@ jobs:
           CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
           CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
 
-  ui-edge-tests:
-    needs: ui-chrome-tests  
+  cypress-run-edge:
+    needs: cypress-run-chrome
     runs-on: ubuntu-22.04
     steps:
-      - name: 📁 Copying the Project
-        uses: actions/checkout@v4
+      - name: 📂 Download Repository
+        uses: actions/download-artifact@v3
+        with:
+          name: source-code
+          path: .
 
       - name: 🧪 Running Tests in Edge
         uses: cypress-io/github-action@v6
@@ -36,12 +55,15 @@ jobs:
           CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
           CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
 
-  ui-firefox-tests:
-    needs: ui-edge-tests  
+  cypress-run-firefox:
+    needs: cypress-run-edge
     runs-on: ubuntu-22.04
     steps:
-      - name: 📁 Copying the Project
-        uses: actions/checkout@v4
+      - name: 📂 Download Repository
+        uses: actions/download-artifact@v3
+        with:
+          name: source-code
+          path: .
 
       - name: 🧪 Running Tests in Firefox
         uses: cypress-io/github-action@v6
