@@ -2,8 +2,14 @@ name: E2E Tests
 
 on: push
 
+env:
+  CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
+  CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
+  CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
+  CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
+
 jobs:
-  ui-chrome-tests:
+  cypress-run-chrome:
     runs-on: ubuntu-22.04
     steps:
       - name: 📁 Copying the Project
@@ -13,14 +19,9 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-        env:
-          CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
-          CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
-          CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
-          CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
 
-  ui-edge-tests:
-    needs: ui-chrome-tests  
+  cypress-run-edge:
+    needs: cypress-run-chrome
     runs-on: ubuntu-22.04
     steps:
       - name: 📁 Copying the Project
@@ -30,14 +31,9 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: edge
-        env:
-          CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
-          CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
-          CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
-          CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
 
-  ui-firefox-tests:
-    needs: ui-edge-tests  
+  cypress-run-firefox:
+    needs: cypress-run-edge 
     runs-on: ubuntu-22.04
     steps:
       - name: 📁 Copying the Project
@@ -47,8 +43,3 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: firefox
-        env:
-          CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
-          CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
-          CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
-          CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
