@@ -3,7 +3,7 @@ name: E2E Tests
 on: push
 
 jobs:
-  ui-chrome-tests:
+  cypress-run-chrome:
     runs-on: ubuntu-22.04
     steps:
       - name: 📁 Copying the Project
@@ -19,8 +19,8 @@ jobs:
           CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
           CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
 
-  ui-edge-tests:
-    needs: ui-chrome-tests  
+  cypress-run-edge:
+    needs: ui-chrome-tests
     runs-on: ubuntu-22.04
     steps:
       - name: 📁 Copying the Project
@@ -36,8 +36,8 @@ jobs:
           CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
           CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
 
-  ui-firefox-tests:
-    needs: ui-edge-tests  
+  cypress-run-firefox:
+    needs: ui-edge-tests
     runs-on: ubuntu-22.04
     steps:
       - name: 📁 Copying the Project
@@ -47,6 +47,23 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: firefox
+        env:
+          CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
+          CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
+          CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
+          CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
+          
+  cypress-run-safari:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install webkit dependencies for Linux
+        run: npx playwright install-deps webkit
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          command: npx cypress run --browser webkit
         env:
           CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
           CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
