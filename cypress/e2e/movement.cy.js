@@ -16,6 +16,10 @@ describe("Movement Creation", () => {
   });
 
   context("Financial Create Transactions", () => {
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    const formattedDate = new Intl.DateTimeFormat("pt-BR").format(currentDate);
+    
     afterEach(() => {
       cy.deletemonthlySummary();
       cy.deleteAccount();
