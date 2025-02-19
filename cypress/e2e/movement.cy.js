@@ -10,9 +10,9 @@ const formattedDate = getFormattedDate();
 describe("Movement Creation", () => {
   beforeEach(() => {
     cy.sessionLogin()
+    cy.createAccount()
     cy.visit('movimentacao')
-    cy.createAccount();
-    homePage.accessCreateMovement();
+    // homePage.accessCreateMovement();
   });
 
   context("Financial Create Transactions", () => {

@@ -19,7 +19,7 @@ describe("Account Management", () => {
     it("Create account", () => {
       const accountName = createAccount();
 
-      homePage.accessAccounts("Adicionar");
+      // homePage.accessAccounts("Adicionar");
       accountPage.createAccount(accountName);
       accountPage.verifyMessage("Conta adicionada com sucesso!");
     });

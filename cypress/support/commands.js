@@ -14,17 +14,20 @@ Cypress.Commands.add('login', () => {
 });
 
 Cypress.Commands.add('createAccount', () => {
-    homePage.accessAccounts('Adicionar');
+    cy.visit('addConta')
+    // homePage.accessAccounts('Adicionar');
     accountPage.createAccount('Nubank');
 });
 
 Cypress.Commands.add('deleteAccount', () => {
-    homePage.accessAccounts('Listar');
+    // homePage.accessAccounts('Listar');
+    cy.visit('contas')
     accountPage.deleteAccount();
 });
 
 Cypress.Commands.add('deletemonthlySummary', () => {
-    homePage.accessMonthlySummary();
+    // homePage.accessMonthlySummary();
+    cy.visit('extrato')
     monthlySummaryPage.deleteMonthlySummary();
 });
 
