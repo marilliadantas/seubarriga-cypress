@@ -9,7 +9,8 @@ const formattedDate = getFormattedDate();
 
 describe("Movement Creation", () => {
   beforeEach(() => {
-    cy.login();
+    cy.sessionLogin()
+    cy.visit('movimentacao')
     cy.createAccount();
     homePage.accessCreateMovement();
   });

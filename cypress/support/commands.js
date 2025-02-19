@@ -27,3 +27,23 @@ Cypress.Commands.add('deletemonthlySummary', () => {
     homePage.accessMonthlySummary();
     monthlySummaryPage.deleteMonthlySummary();
 });
+
+Cypress.Commands.add('sessionLogin', (
+    email = Cypress.env('EMAIL_VALID'),
+    password = Cypress.env('PASSWORD_VALID')
+  ) => {
+    const login = () => cy.login(email, password)
+  
+    const validate = () => {
+      cy.visit('/')
+      cy.location('pathname', { timeout: 1000 })
+        .should('eq', '/')
+    }
+  
+    const options = {
+      cacheAcrossSpecs: true,
+      validate,
+    }
+  
+    cy.session(email, login, options)
+})

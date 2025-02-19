@@ -6,7 +6,8 @@ const loginPage = new LoginPage();
 
 describe("Home page", () => {
   beforeEach(() => {
-    cy.login();
+    cy.sessionLogin()
+    cy.visit('/')
   });
 
   it("Logout successfully", () => {

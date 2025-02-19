@@ -7,7 +7,8 @@ const accountPage = new AccountPage();
 
 describe("Account Management", () => {
   beforeEach(() => {
-    cy.login();
+    cy.sessionLogin()
+    cy.visit('addConta')
   });
 
   context("Account Creation, Edit and List", () => {
